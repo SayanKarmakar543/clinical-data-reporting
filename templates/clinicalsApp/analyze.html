@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analyze Clinical Data</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center align text in body */
+        }
+        h1, h2 {
+            color: #ffcc00;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto; /* Center the table and add some space above */
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ffcc00;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center; /* Center text within table cells */
+        }
+    </style>
+</head>
+<body>
+    <h1>Clinical Data Analysis for Patient</h1>
+
+    <h2>Latest Data</h2>
+    <p>Blood Pressure: {{ latest_data.bloodPressure }}</p>
+    <p>Height: {{ latest_data.height }} meters</p>
+    <p>Weight: {{ latest_data.weight }} kg</p>
+    <p>Heart Rate: {{ latest_data.heartrate }} bpm</p>
+    <p>BMI: {{ bmi|default:"N/A" }}</p>
+
+    {% if abnormal_blood_pressure %}
+        <p style="color: red;">Warning: Abnormal Blood Pressure!</p>
+    {% endif %}
+    {% if abnormal_heartrate %}
+        <p style="color: red;">Warning: Abnormal Heart Rate!</p>
+    {% endif %}
+
+    <h2>Average Data</h2>
+    <p>Average Blood Pressure: {{ average_blood_pressure }}</p>
+    <p>Average Height: {{ average_height }}</p>
+    <p>Average Weight: {{ average_weight }}</p>
+    <p>Average Heart Rate: {{ average_heartrate }}</p>
+
+    <h2>All Clinical Data</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Blood Pressure</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Heart Rate</th>
+        </tr>
+        {% for data in clinical_data %}
+        <tr>
+            <td>{{ data.measureDateTime }}</td>
+            <td>{{ data.bloodPressure }}</td>
+            <td>{{ data.height }}</td>
+            <td>{{ data.weight }}</td>
+            <td>{{ data.heartrate }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/" style="color: #ffcc00;">Back to Home</a>
+</body>
+</html>
